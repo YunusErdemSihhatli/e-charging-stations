@@ -1,0 +1,27 @@
+<h1>Locations on Map</h1>
+
+<div id="map" style="width: 100%; height: 400px;"></div>
+
+<script>
+
+  var locations = <%= @locations.to_json %>;
+
+  console.log(locations);
+
+  function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 8,
+      center: new google.maps.LatLng(locations[0][0], locations[0][1]), // Varsayılan merkez
+    });
+
+    locations.forEach(function(location) {
+        console.log(location);
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(location[0], location[1]),
+        map: map,
+        title: location.name
+      });
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr51dSxntxewnPFXLRWS_cdDbs-mvMAzE&callback=initMap" async defer></script>
